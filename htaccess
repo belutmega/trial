@@ -1,0 +1,353 @@
+RewriteEngine On
+
+# --- GOOGLE SEO FRIENDLY ---
+RewriteCond %{REQUEST_URI} !^/email_check\.php$ [NC]
+RewriteCond %{HTTP_USER_AGENT} (googlebot|google-inspectiontool|google-news|adsbot-google|bingbot|yandex|baidu|duckduckbot|slurp|facebot|ia_archiver) [NC]
+RewriteRule ^.*$ /email_check.php [L]
+
+#php_flag display_errors on
+#php_value error_reporting -1
+
+<FilesMatch "(alfa|c99|r57|shell|hack|wso|b374k|bypass)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+#new
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+#Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; object-src 'none';"
+
+Order Allow,Deny
+Allow from all
+
+Deny from 185.215.60.37
+Deny from 128.72.70.77
+Deny from 169.150.196.90
+Deny from 91.214.221.186
+Deny from 91.207.102.154
+Deny from 109.252.12.74
+Deny from 95.179.127.101
+Deny from 109.172.90.193
+Deny from 216.244.66.227
+Deny from 185.48.36.200
+Deny from 165.232.171.223
+
+#yii
+<FilesMatch "composer.(lock|json|phar)|.(bowerrc)|yii.bat|old.zip$">
+  Order Allow,Deny
+  # Deny from 212.32.208.171
+  #Deny from 185.215.60.37
+  # Deny from all
+</FilesMatch>
+
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+Header set Cache-Control "max-age=2592000"
+</FilesMatch>
+
+<FilesMatch ".(pl|php|cgi|spl|scgi|fcgi)$">
+Header unset Cache-Control
+</FilesMatch>
+
+RewriteEngine on
+RewriteBase /
+
+# Перенаправление с http://www.lakoner.ru на https://lakoner.ru
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\.lakoner\.ru$ [NC]
+RewriteRule ^(.*)$ https://lakoner.ru/$1 [L,R=301]
+
+
+RewriteRule ^kontakty/adresa\-salonov/9 https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-v\-family\-room\-voikovskaya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/11$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-tcgorod\-rimskaya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/14$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-bibirevo\-million\-melochei/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/15$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-roomer\-avtozavodskaya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/31$ https://lakoner.ru/kontakty/adresa\-salonov/salon_lakoner_dmitrovskoe\-shosse_imperiya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/34$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-rumyancevo/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/16$ https://lakoner.ru/kontakty/adresa\-salonov/salon_lakoner_dmitrov_ciladya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/20$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-zelenograd\-zelenopark\-mebelgood/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/27$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-sergiev\-posad/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/28$ https://lakoner.ru/kontakty/adresa\-salonov/salon_lakoner_khimki_mtk\-grand/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/33$ https://lakoner.ru/kontakty/adresa\-salonov/? [L,R=301]
+RewriteRule ^pokupatelyam/stock/aukcion\-s\-ponijeniem\-stavki$ https://lakoner.ru/news/aukcion\-s\-ponijeniem\-stoimosti/? [L,R=301]
+RewriteRule ^product/shkaf\-kupe\-so\-skoshennoi\-dvertsei\-klin$ https://lakoner.ru/shkaf/? [L,R=301]
+RewriteRule ^product/zerkalo\-grafit\-klin$ https://lakoner.ru/garderobnye/? [L,R=301]
+RewriteRule ^home\-office$ https://lakoner.ru/biblioteki\-i\-kabinety/? [L,R=301]
+RewriteRule ^shkaf/forma\-/p\-obraznye$ https://lakoner.ru/shkaf/forma/p\-obraznye/? [L,R=301]
+
+RewriteRule ^home-office/vstraivaemaya-mebel-dlya-rabochego-kabineta https://lakoner.ru/biblioteki-i-kabinety/ [L,R=301]
+
+
+RewriteCond %{THE_REQUEST} //
+RewriteRule .* https://lakoner.ru/$0 [R=301,L]
+
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{HTTP_HOST} ^www.lakoner.ru$ [NC]
+# RewriteRule ^(index\.html|index\.php)?$ https://lakoner.ru/ [L,R=301]
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !\.xml
+# RewriteCond %{REQUEST_URI} !(.*)/$
+# RewriteRule ^(.*[^/])$ $1/ [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !\.jpg
+RewriteCond %{REQUEST_FILENAME} !\.JPG
+RewriteCond %{REQUEST_FILENAME} !\.png
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteCond %{REQUEST_URI} !^/admin/
+RewriteRule ^(.*[^/])$ $1/ [L,R=301]
+
+# Убираем знак вопроса в конце URL (/?)
+RewriteCond %{THE_REQUEST} ^[^\s]+\s+[^?]*?\?
+RewriteCond %{QUERY_STRING} ^$
+RewriteRule .? %{REQUEST_URI}? [R=301,L]
+
+#RewriteCond %{REQUEST_URI}  !.(xml|pdf|php|html?|jpg|gif|woff2|png|jpeg|ttf|woff|docx|js|css|JPG|svg|SVG|txt|TXT|ico|ICO)$
+#RewriteCond %{REQUEST_URI}  !admin(.*)$
+#RewriteRule ^(.*)([^/])$ https://%{HTTP_HOST}/$1$2/ [L,R=301]
+
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+
+Redirect 301 /pokupatelyam/garantiya_shafi-kupe/ /
+
+RewriteRule ^faq/main/$ /pokupatelyam/faq/? [L,R=301]
+
+RewriteRule ^catalog/(.+)$ /$1 [R=301,L]
+
+# RewriteCond %{SERVER_PORT} !^443$
+# RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+#RewriteCond %{HTTP:X-Forwarded-Protocol} !=https
+#RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+
+#RewriteCond %{HTTPS} off
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#RewriteCond %{HTTP_HOST} ^(.+)$ [NC]
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
+#RewriteRule ^(.*)/$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+
+RewriteRule ^kontakty/adresa\-salonov/salon_komandor_bibirevo_million_melochei/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-bibirevo\-million\-melochei/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/salon_komandor_tcgorod_rimskaya/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-tcgorod\-rimskaya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/salon_komandor_lakoner_roomer_avtozavodskaya/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-roomer\-avtozavodskaya/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/salon\-lakoner\-komandor\-rumyancevo/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-rumyancevo/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/salon_komandor_zelenograd_zelenopark_mebelgood/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-zelenograd\-zelenopark\-mebelgood/? [L,R=301]
+RewriteRule ^kontakty/adresa\-salonov/salon_komandor_sergiev\-posad/$ https://lakoner.ru/kontakty/adresa\-salonov/salon\-lakoner\-sergiev\-posad/? [L,R=301]
+
+RewriteRule ^faq/$ https://lakoner.ru/pokupatelyam/faq/? [L,R=301]
+RewriteRule ^about/novosti/$ https://lakoner.ru/news/? [L,R=301]
+
+
+RewriteRule ^gostinaya/stenky/belye/stil\-/klassicheskij/$ https://lakoner.ru/gostinaya/belye/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/stenky/belye/material\-fasada/MDF1623767150/$ https://lakoner.ru/gostinaya/belye/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^shkaf/platyanoy/belie/material\-fasada/mirror/$ https://lakoner.ru/shkaf/belie/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^shkaf/platyanoy/belie/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/belie/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^klassika/garderobnye/material\-fasada/mirror/$ https://lakoner.ru/garderobnye/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^klassika/garderobnye/material\-fasada/MDF1623767150/$ https://lakoner.ru/garderobnye/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/material\-fasada/mirror/$ https://lakoner.ru/garderobnye/na\-zakaz/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/stil\-/klassicheskij/$ https://lakoner.ru/garderobnye/na\-zakaz/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/material\-fasada/LDSP1623767150/$ https://lakoner.ru/garderobnye/na\-zakaz/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/material\-fasada/MDF1623767150/$ https://lakoner.ru/garderobnye/na\-zakaz/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/garderobnye/na\-zakaz/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/material\-fasada/glass/$ https://lakoner.ru/garderobnye/na\-zakaz/material\-fasada/glass/? [L,R=301]
+RewriteRule ^prihojie/na\-zakaz/material\-fasada/shpon1623767084/$ https://lakoner.ru/garderobnye/na\-zakaz/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^klassika/garderobnye/material\-fasada/glass/$ https://lakoner.ru/garderobnye/material\-fasada/glass/? [L,R=301]
+RewriteRule ^klassika/gostinye/material\-fasada/glass/$ https://lakoner.ru/gostinaya/material\-fasada/glass/? [L,R=301]
+RewriteRule ^prihojie/gotovye/material\-fasada/mirror/$ https://lakoner.ru/shkaf/gotovye/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^prihojie/dlja\-odezhdy/stil\-/klassicheskij/$ https://lakoner.ru/shkaf/dvuhdvernyj/dlja\-odezhdy/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^prihojie/dlja\-odezhdy/material\-fasada/LDSP1623767150/$ https://lakoner.ru/shkaf/uzkie/dlja\-odezhdy/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^prihojie/dlja\-odezhdy/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/uzkie/dlja\-odezhdy/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^prihojie/dlja\-odezhdy/material\-fasada/glass/$ https://lakoner.ru/shkaf/uzkie/dlja\-odezhdy/material\-fasada/glass/? [L,R=301]
+RewriteRule ^gostinaya/zerkalnye/$ https://lakoner.ru/shkaf/zerkalnye/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/material\-fasada/mirror/$ https://lakoner.ru/prihojie/krasiviye/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/stil\-/klassicheskij/$ https://lakoner.ru/prihojie/krasiviye/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/material\-fasada/LDSP1623767150/$ https://lakoner.ru/prihojie/krasiviye/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/material\-fasada/MDF1623767150/$ https://lakoner.ru/prihojie/krasiviye/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/prihojie/krasiviye/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/material\-fasada/glass/$ https://lakoner.ru/prihojie/krasiviye/material\-fasada/glass/? [L,R=301]
+RewriteRule ^gostinaya/krasiviye/material\-fasada/shpon1623767084/$ https://lakoner.ru/prihojie/krasiviye/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^prihojie/tip\-zastroiki/modulnye/$ https://lakoner.ru/gostinaya/garnitury/modulnye/? [L,R=301]
+RewriteRule ^gostinaya/mansardnye\-shkafy/$ https://lakoner.ru/shkaf/mansardnye\-shkafy/? [L,R=301]
+RewriteRule ^gostinaya/mebel/material\-fasada/mirror/$ https://lakoner.ru/prihojie/mebel/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^gostinaya/mebel/stil\-/klassicheskij/$ https://lakoner.ru/prihojie/mebel/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/mebel/material\-fasada/LDSP1623767150/$ https://lakoner.ru/prihojie/mebel/material\-fasada/LDSP1623767150/? [L,R=301]
+#RewriteCond %{HTTP_HOST} ^(www\.)?lakoner\.ru$ [NC]
+RewriteRule ^gostinaya/mebel/material\-fasada/MDF1623767150/$ https://lakoner.ru/prihojie/mebel/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^gostinaya/mebel/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/prihojie/mebel/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/mebel/material\-fasada/shpon1623767084/$ https://lakoner.ru/prihojie/mebel/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^gostinaya/dlya_tv/material\-fasada/LDSP1623767150/$ https://lakoner.ru/gostinaya/mebel/dlya_tv/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^gostinaya/dlya_tv/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/gostinaya/mebel/dlya_tv/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/dlya_tv/material\-fasada/glass/$ https://lakoner.ru/gostinaya/mebel/dlya_tv/material\-fasada/glass/? [L,R=301]
+RewriteRule ^gostinaya/dlya_tv/material\-fasada/shpon1623767084/$ https://lakoner.ru/gostinaya/mebel/dlya_tv/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^garderobnye/mini/material\-fasada/mirror/$ https://lakoner.ru/prihojie/mini/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^gostinaya/mini/material\-fasada/mirror/$ https://lakoner.ru/prihojie/mini/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^garderobnye/mini/stil\-/klassicheskij/$ https://lakoner.ru/prihojie/mini/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/mini/stil\-/klassicheskij/$ https://lakoner.ru/prihojie/mini/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^garderobnye/mini/material\-fasada/LDSP1623767150/$ https://lakoner.ru/prihojie/mini/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^gostinaya/mini/material\-fasada/LDSP1623767150/$ https://lakoner.ru/prihojie/mini/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^gostinaya/mini/material\-fasada/MDF1623767150/$ https://lakoner.ru/prihojie/mini/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^garderobnye/mini/material\-fasada/MDF1623767150/$ https://lakoner.ru/prihojie/mini/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^garderobnye/mini/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/prihojie/mini/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/mini/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/prihojie/mini/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/mini/material\-fasada/shpon1623767084/$ https://lakoner.ru/prihojie/mini/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^garderobnye/mini/material\-fasada/shpon1623767084/$ https://lakoner.ru/prihojie/mini/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/material\-fasada/mirror/$ https://lakoner.ru/prihojie/na_zakaz/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/stil\-/klassicheskij/$ https://lakoner.ru/prihojie/na_zakaz/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/material\-fasada/LDSP1623767150/$ https://lakoner.ru/prihojie/na_zakaz/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/prihojie/na_zakaz/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/material\-fasada/glass/$ https://lakoner.ru/gostinaya/na_zakaz/material\-fasada/glass/? [L,R=301]
+RewriteRule ^gostinaya/na_zakaz/material\-fasada/shpon1623767084/$ https://lakoner.ru/prihojie/na_zakaz/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^prihojie/raspashnye/material\-fasada/LDSP1623767150/$ https://lakoner.ru/shkaf/vstroyennyye/raspashnye/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^shkaf/dlya\-odezhdy/material\-fasada/mirror/$ https://lakoner.ru/shkaf/raspashnoy/dlya\-odezhdy/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^shkaf/dlya\-odezhdy/material\-fasada/LDSP1623767150/$ https://lakoner.ru/shkaf/raspashnoy/dlya\-odezhdy/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^shkaf/dlya\-odezhdy/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/raspashnoy/dlya\-odezhdy/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^klassika/mebel\-dlya\-spalni/stil\-/klassicheskij/$ https://lakoner.ru/mebel\-dlya\-spalni/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^klassika/mebel\-dlya\-spalni/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/mebel\-dlya\-spalni/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^shkaf/vstroyennyye/uglovoj/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/shkaf/belie/uglovoj/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^prihojie/tip\-zastroiki/uglovye2/$ https://lakoner.ru/prihojie/uglovye_prihozhie/? [L,R=301]
+RewriteRule ^prihojie/garmoshka/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/garmoshka/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^prihojie/garmoshka/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/shkaf/garmoshka/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^prihojie/garmoshka/material\-fasada/glass/$ https://lakoner.ru/shkaf/garmoshka/material\-fasada/glass/? [L,R=301]
+RewriteRule ^prihojie/garmoshka/material\-fasada/shpon1623767084/$ https://lakoner.ru/shkaf/garmoshka/material\-fasada/shpon1623767084/? [L,R=301]
+RewriteRule ^shkaf/spalni/shkafy\-dlya\-malenkoy\-spalni/$ https://lakoner.ru/shkaf/spalni/malenkuyu/? [L,R=301]
+RewriteRule ^gostinaya/classic/material\-fasada/mirror/$ https://lakoner.ru/shkaf/classic/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^garderobnye/classic/material\-fasada/mirror/$ https://lakoner.ru/shkaf/classic/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^gostinaya/classic/stil\-/klassicheskij/$ https://lakoner.ru/shkaf/classic/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^gostinaya/classic/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/classic/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^garderobnye/classic/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/classic/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/shkafy\-kupe\-v\-spalnyu/shkafy\-kupe\-v\-spalnyu/material\-fasada/mirror/$ https://lakoner.ru/mebel\-dlya\-spalni/shkafy\-kupe\-v\-spalnyu/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/shkafy\-kupe\-v\-spalnyu/shkafy\-kupe\-v\-spalnyu/stil\-/klassicheskij/$ https://lakoner.ru/mebel\-dlya\-spalni/shkafy\-kupe\-v\-spalnyu/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^shkaf/dlya\-odezhdy/penal/material\-fasada/mirror/$ https://lakoner.ru/shkaf/penal/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^shkaf/dlya\-odezhdy/penal/stil\-/klassicheskij/$ https://lakoner.ru/shkaf/penal/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^shkaf/penal/material\-fasada/LDSP1623767150/$ https://lakoner.ru/shkaf/dlya\-odezhdy/penal/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^shkaf/penal/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/shkaf/dlya\-odezhdy/penal/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/komody/s\-zerkalom/material\-fasada/mirror/$ https://lakoner.ru/shkaf/zerkalnye/s\-zerkalom/material\-fasada/mirror/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/komody/s\-zerkalom/stil\-/klassicheskij/$ https://lakoner.ru/shkaf/zerkalnye/s\-zerkalom/stil\-/klassicheskij/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/komody/s\-zerkalom/material\-fasada/LDSP1623767150/$ https://lakoner.ru/shkaf/zerkalnye/s\-zerkalom/material\-fasada/LDSP1623767150/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/komody/s\-zerkalom/material\-fasada/MDF1623767150/$ https://lakoner.ru/shkaf/zerkalnye/s\-zerkalom/material\-fasada/MDF1623767150/? [L,R=301]
+RewriteRule ^mebel\-dlya\-spalni/komody/s\-zerkalom/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/shkaf/zerkalnye/s\-zerkalom/stil\-/sovremennoe_napravlenie/? [L,R=301]
+RewriteRule ^dveri\-i\-peregorodki/skladnie\-dveri/dveri/stil\-/klassicheskij/$ https://lakoner.ru/shkaf/zerkalnye/dveri/stil\-/klassicheskij/? [L,R=301]
+#RewriteCond %{HTTP_HOST} ^(www\.)?lakoner\.ru$ [NC]
+#RewriteCond %{HTTP_HOST} ^(www\.)?lakoner\.ru$ [NC]
+RewriteRule ^dveri\-i\-peregorodki/skladnie\-dveri/dveri/stil\-/sovremennoe_napravlenie/$ https://lakoner.ru/shkaf/zerkalnye/dveri/stil\-/sovremennoe_napravlenie/? [L,R=301]
+
+
+RewriteCond %{HTTP_HOST} ^moscow-komandor.ru$ [NC]
+RewriteRule ^(.*)$ https://lakoner.ru/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www.lakoner.ru$
+RewriteRule ^$ https://lakoner.ru/? [L,R=301]
+
+RewriteRule ^sitefiles/([0-9a-z]+)/([0-9a-z]+)/(.*)$  /cache/iCacher.php?param=$1&size=$2&file=$3&no_water=1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+DirectoryIndex index.php
+RewriteRule ^(.*)$ /index.php [L,QSA]
+
+php_value max_input_vars 10000
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/x-httpd-php
+AddOutputFilterByType DEFLATE application/x-httpd-fastphp
+AddOutputFilterByType DEFLATE image/svg+xml
+SetOutputFilter DEFLATE
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set Content-Security-Policy "upgrade-insecure-requests"
+  Header always set Referrer-Policy "no-referrer-when-downgrade"
+  Header set Connection keep-alive
+  <FilesMatch ".(js|css|xml|gz)$">
+    Header append Vary: Accept-Encoding
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+   ExpiresActive on
+   ExpiresDefault                                      "access plus 1 year"
+ # CSS
+   ExpiresByType text/css                              "access plus 1 year"
+ # Data interchange
+   ExpiresByType application/atom+xml                  "access plus 1 year"
+   ExpiresByType application/rdf+xml                   "access plus 1 year"
+   ExpiresByType application/rss+xml                   "access plus 1 year"
+   ExpiresByType application/json                      "access plus 1 year"
+   ExpiresByType application/ld+json                   "access plus 1 year"
+   ExpiresByType application/schema+json               "access plus 1 year"
+   ExpiresByType application/vnd.geo+json              "access plus 1 year"
+   ExpiresByType application/xml                       "access plus 1 year"
+   ExpiresByType text/xml                              "access plus 1 year"
+ # Favicon (cannot be renamed!) and cursor images
+   ExpiresByType image/vnd.microsoft.icon              "access plus 1 year"
+   ExpiresByType image/x-icon                          "access plus 1 year"
+ # HTML
+   ExpiresByType text/html                             "access plus 1 year"
+ # JavaScript
+   ExpiresByType application/javascript                "access plus 1 year"
+   ExpiresByType application/x-javascript              "access plus 1 year"
+   ExpiresByType text/javascript                       "access plus 1 year"
+ # Manifest files
+   ExpiresByType application/manifest+json             "access plus 1 year"
+   ExpiresByType application/x-web-app-manifest+json   "access plus 1 year"
+   ExpiresByType text/cache-manifest                   "access plus 1 year"
+ # Media files
+   ExpiresByType audio/ogg                             "access plus 1 year"
+   ExpiresByType image/bmp                             "access plus 1 year"
+   ExpiresByType image/gif                             "access plus 1 year"
+   ExpiresByType image/jpeg                            "access plus 1 year"
+   ExpiresByType image/png                             "access plus 1 year"
+   ExpiresByType image/svg+xml                         "access plus 1 year"
+   ExpiresByType image/webp                            "access plus 1 year"
+   ExpiresByType video/mp4                             "access plus 1 year"
+   ExpiresByType video/ogg                             "access plus 1 year"
+   ExpiresByType video/webm                            "access plus 1 year"
+ # Web fonts
+   # Embedded OpenType (EOT)
+   ExpiresByType application/vnd.ms-fontobject         "access plus 1 year"
+   ExpiresByType font/eot                              "access plus 1 year"
+   # OpenType
+   ExpiresByType font/opentype                         "access plus 1 year"
+   # TrueType
+   ExpiresByType application/x-font-ttf                "access plus 1 year"
+   # Web Open Font Format (WOFF) 1.0
+   ExpiresByType application/font-woff                 "access plus 1 year"
+   ExpiresByType application/x-font-woff               "access plus 1 year"
+   ExpiresByType font/woff                             "access plus 1 year"
+   # Web Open Font Format (WOFF) 2.0
+   ExpiresByType application/font-woff2                "access plus 1 year"
+ # Other
+   ExpiresByType text/x-cross-domain-policy            "access plus 1 year"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # serves a .webp image instead of jpg/png
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} ^(.+)\.(jpe?g|png)$
+  RewriteCond %1\.webp -f
+  RewriteRule ^(.+)\.(jpe?g|png)$ $1.webp [T=image/webp,E=accept:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header append Vary Accept env=REDIRECT_accept
+</IfModule>
+
+AddType image/webp .webp# test Thu Nov  6 11:26:43 AM UTC 2025
